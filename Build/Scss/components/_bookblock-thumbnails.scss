@@ -1,0 +1,326 @@
+// BookBlock Thumbnails Styles
+// Modern CSS implementation with container queries
+
+.bb-bookblock-thumbnails {
+  container-type: inline-size;
+  container-name: bookblock-thumbnails;
+  margin-top: var(--bookblock-thumb-spacing);
+  
+  &__container {
+    display: flex;
+    gap: var(--bookblock-thumb-spacing);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: var(--bookblock-thumb-spacing);
+    scroll-behavior: smooth;
+    
+    // Custom scrollbar
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 2px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 2px;
+      
+      &:hover {
+        background: #a1a1a1;
+      }
+    }
+    
+    // Firefox scrollbar
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f1f1f1;
+  }
+  
+  &__item {
+    flex: 0 0 auto;
+    width: var(--bookblock-thumb-size);
+    height: var(--bookblock-thumb-size);
+    background: var(--bookblock-thumb-bg);
+    border: var(--bookblock-thumb-border);
+    border-radius: var(--bookblock-thumb-border-radius);
+    cursor: pointer;
+    overflow: hidden;
+    opacity: var(--bookblock-thumb-opacity);
+    transition: all 0.3s ease;
+    position: relative;
+    
+    &:hover {
+      opacity: var(--bookblock-thumb-opacity-hover);
+      transform: scale(1.05);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    &:focus {
+      outline: 2px solid #007cba;
+      outline-offset: 2px;
+    }
+    
+    &--active {
+      border: var(--bookblock-thumb-border-active);
+      opacity: var(--bookblock-thumb-opacity-active);
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    &--loading {
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 20px;
+        border: 2px solid #f3f3f3;
+        border-top: 2px solid #007cba;
+        border-radius: 50%;
+        animation: bb-thumbnail-spin 1s linear infinite;
+      }
+    }
+    
+    &--error {
+      background: #ffebee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      &::after {
+        content: '⚠';
+        color: #d32f2f;
+        font-size: 16px;
+      }
+    }
+  }
+  
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+    
+    .bb-bookblock-thumbnails__item:hover & {
+      transform: scale(1.1);
+    }
+  }
+  
+  // Page number overlay
+  &__page-number {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 10px;
+    padding: 2px 4px;
+    border-radius: 2px;
+    line-height: 1;
+    pointer-events: none;
+  }
+  
+  // Navigation arrows for thumbnail scrolling
+  &__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 1;
+    
+    &:hover {
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: none;
+      }
+    }
+    
+    &--prev {
+      left: 4px;
+    }
+    
+    &--next {
+      right: 4px;
+    }
+    
+    &::after {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background: currentColor;
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+    }
+    
+    &--prev::after {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z'/%3E%3C/svg%3E");
+    }
+    
+    &--next::after {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'/%3E%3C/svg%3E");
+    }
+  }
+}
+
+// Container queries for responsive thumbnails
+@container bookblock-thumbnails (max-width: 600px) {
+  .bb-bookblock-thumbnails {
+    &__item {
+      width: var(--bookblock-thumb-size-mobile);
+      height: var(--bookblock-thumb-size-mobile);
+    }
+    
+    &__page-number {
+      font-size: 8px;
+      padding: 1px 3px;
+    }
+    
+    &__nav {
+      width: 28px;
+      height: 28px;
+      
+      &::after {
+        width: 10px;
+        height: 10px;
+      }
+    }
+  }
+}
+
+@container bookblock-thumbnails (max-width: 400px) {
+  .bb-bookblock-thumbnails {
+    &__container {
+      padding: calc(var(--bookblock-thumb-spacing) / 2);
+      gap: calc(var(--bookblock-thumb-spacing) / 2);
+    }
+    
+    &__item {
+      width: calc(var(--bookblock-thumb-size-mobile) - 10px);
+      height: calc(var(--bookblock-thumb-size-mobile) - 10px);
+    }
+  }
+}
+
+// Animations
+@keyframes bb-thumbnail-spin {
+  0% { 
+    transform: translate(-50%, -50%) rotate(0deg); 
+  }
+  100% { 
+    transform: translate(-50%, -50%) rotate(360deg); 
+  }
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+  .bb-bookblock-thumbnails {
+    &__container {
+      scroll-behavior: auto;
+    }
+    
+    &__item {
+      transition: opacity 0.1s ease;
+      
+      &:hover {
+        transform: none;
+      }
+      
+      &--active {
+        transform: none;
+      }
+    }
+    
+    &__image {
+      transition: none;
+      
+      .bb-bookblock-thumbnails__item:hover & {
+        transform: none;
+      }
+    }
+  }
+  
+  @keyframes bb-thumbnail-spin {
+    0%, 100% { 
+      transform: translate(-50%, -50%) rotate(0deg); 
+    }
+  }
+}
+
+// High contrast mode
+@media (prefers-contrast: high) {
+  .bb-bookblock-thumbnails {
+    &__item {
+      border: 2px solid #000;
+      
+      &--active {
+        border: 3px solid #0066cc;
+      }
+      
+      &--error {
+        border: 2px solid #d32f2f;
+      }
+    }
+    
+    &__nav {
+      background: #fff;
+      border: 1px solid #000;
+      
+      &:hover {
+        background: #f0f0f0;
+      }
+    }
+  }
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+  .bb-bookblock-thumbnails {
+    &__container {
+      &::-webkit-scrollbar-track {
+        background: #333;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: #666;
+        
+        &:hover {
+          background: #777;
+        }
+      }
+      
+      scrollbar-color: #666 #333;
+    }
+    
+    &__nav {
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      
+      &:hover {
+        background: rgba(0, 0, 0, 0.9);
+      }
+    }
+  }
+}

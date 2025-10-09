@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bookGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#357ABD;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="pageGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F8F9FA;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E9ECEF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Book Cover -->
+  <rect x="8" y="10" width="40" height="48" rx="2" ry="2" 
+        fill="url(#bookGradient)" stroke="#2C5282" stroke-width="1"/>
+  
+  <!-- Book Spine -->
+  <rect x="6" y="10" width="4" height="48" rx="1" ry="1" 
+        fill="#2C5282"/>
+  
+  <!-- Book Pages -->
+  <rect x="12" y="14" width="32" height="40" rx="1" ry="1" 
+        fill="url(#pageGradient)" stroke="#DEE2E6" stroke-width="0.5"/>
+  
+  <!-- Page Separator Lines -->
+  <line x1="12" y1="22" x2="44" y2="22" stroke="#CED4DA" stroke-width="0.5"/>
+  <line x1="12" y1="30" x2="44" y2="30" stroke="#CED4DA" stroke-width="0.5"/>
+  <line x1="12" y1="38" x2="44" y2="38" stroke="#CED4DA" stroke-width="0.5"/>
+  <line x1="12" y1="46" x2="44" y2="46" stroke="#CED4DA" stroke-width="0.5"/>
+  
+  <!-- Interactive Elements -->
+  <!-- Flip Arrow -->
+  <path d="M50 32 L56 28 L56 36 Z" fill="#28A745" opacity="0.8"/>
+  
+  <!-- Page Turn Effect -->
+  <path d="M44 14 L44 24 L50 20 Z" fill="#F8F9FA" stroke="#DEE2E6" stroke-width="0.5" opacity="0.7"/>
+  
+  <!-- Book Title Area -->
+  <rect x="14" y="16" width="28" height="4" rx="1" ry="1" fill="#4A90E2" opacity="0.3"/>
+  
+  <!-- Interactive Icon -->
+  <circle cx="52" cy="52" r="6" fill="#28A745" opacity="0.9"/>
+  <path d="M49 52 L52 49 L55 52 L52 55 Z" fill="white" stroke="none"/>
+</svg>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" product-name="bookblock" date="2024-01-01T00:00:00Z">
+		<header/>
+		<body>
+			<trans-unit id="flux.bookblock">
+				<source>BookBlock</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.sheets.config">
+				<source>Configuration</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.sheets.advanced">
+				<source>Advanced Options</source>
+			</trans-unit>
+			
+			<!-- Original fields from old extension -->
+			<trans-unit id="flux.bookblock.fields.height">
+				<source>Height</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.thumbnailHeight">
+				<source>Thumbnail Height</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.zoomHeight">
+				<source>Zoom Height</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.thumbwidth">
+				<source>Cover width</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.thumbheight">
+				<source>Cover height</source>
+			</trans-unit>
+			
+			<!-- Additional modern fields -->
+			<trans-unit id="flux.bookblock.fields.flat">
+				<source>Use LightGallery instead of 3D page turning</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.singlepages">
+				<source>Single pages</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.firstpagesingle">
+				<source>First page is a single page</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.lastpagesingle">
+				<source>Last page is a single page</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.pdf">
+				<source>PDF file</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.enableZoom">
+				<source>Enable zoom function</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.showThumbnails">
+				<source>Show thumbnail navigation</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.animationSpeed">
+				<source>Animation speed (ms)</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.preloadImages">
+				<source>Preload images</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.lazyLoading">
+				<source>Enable lazy loading</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.keyboardNavigation">
+				<source>Enable keyboard navigation</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.altText">
+				<source>Alt text for accessibility</source>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.cssClass">
+				<source>Additional CSS classes</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

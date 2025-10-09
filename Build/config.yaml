@@ -1,0 +1,31 @@
+# BookBlock Extension Build Configuration
+# TYPO3 13.4 Integration with Build System
+
+# Extension Information
+extension:
+  key: "bookblock"
+  name: "BookBlock Interactive Component"
+
+# Build Configuration
+build:
+  # SCSS Configuration
+  scss:
+    mainFile: "_main"
+    outputName: "bookblock"
+    variables:
+      - "_variables"
+    components:
+      - "bookblock-core"
+      - "bookblock-zoom" 
+      - "bookblock-thumbnails"
+      - "bookblock-responsive"
+  
+  # JavaScript Configuration  
+  js:
+    controllers:
+      - "bookblock_controller"
+      - "bookblock_zoom_controller"
+      - "bookblock_thumbnail_controller"
+    services:
+      - "PdfConverter"
+    outputName: "bookblock-controllers"

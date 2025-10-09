@@ -1,0 +1,31 @@
+{
+  "name": "monosize/typo3-bookblock",
+  "description": "Interactive BookBlock component for TYPO3 with PDF-to-image conversion and modern Stimulus controllers",
+  "type": "typo3-cms-extension",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Gestaltende",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "spatie/pdf-to-image": "^2.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Monosize\\Bookblock\\": "Classes/"
+    }
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "bookblock",
+      "app-dir": ".build",
+      "web-dir": ".build/web"
+    }
+  },
+  "config": {
+    "vendor-dir": ".build/vendor",
+    "bin-dir": ".build/bin"
+  }
+}

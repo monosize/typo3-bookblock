@@ -1,0 +1,300 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:comment>
+BookBlock Show Template
+Modern TYPO3 13.4 template with Stimulus integration
+</f:comment>
+
+<div id="{bookBlockId}" 
+     class="bb-bookblock-wrapper" 
+     data-controller="bookblock-bookblock bookblock-bookblock_zoom bookblock-bookblock_thumbnail"
+     data-bookblock-orientation-value="{config.orientation}"
+     data-bookblock-animation-speed-value="{config.animationSpeed}"
+     data-bookblock-auto-play-value="{config.autoPlay}"
+     data-bookblock-auto-play-interval-value="{config.autoPlayInterval}"
+     data-bookblock-loop-value="{config.loop}"
+     data-bookblock-enable-zoom-value="{config.enableZoom}"
+     data-bookblock-show-thumbnails-value="{config.showThumbnails}"
+     data-bookblock-responsive-value="{config.responsive}"
+     data-bookblock-mobile-breakpoint-value="{config.mobileBreakpoint}"
+     data-bookblock-pdf-file-value="{config.pdfFile}"
+     data-bookblock-book-block-id-value="{bookBlockId}">
+
+  <f:comment>BookBlock Container</f:comment>
+  <div class="bb-container" data-bookblock-target="container">
+    
+    <f:comment>Header Section</f:comment>
+    <f:if condition="{config.title}">
+      <header class="bb-header">
+        <h1 class="bb-title">{config.title}</h1>
+        <f:if condition="{config.description}">
+          <p class="bb-description">{config.description}</p>
+        </f:if>
+      </header>
+    </f:if>
+
+    <f:comment>Main BookBlock Element</f:comment>
+    <div class="bb-bookblock" data-bookblock-target="allItems">
+      
+      <f:comment>Pages from Images or PDF</f:comment>
+      <f:if condition="{images}">
+        <f:for each="{images}" as="image" iteration="iterator">
+          <div class="bb-page" data-bookblock-target="page">
+            <div class="bb-outer">
+              <div class="bb-content">
+                <div class="bb-inner">
+                  <div class="bb-item" 
+                       data-bookblock-target="item"
+                       data-action="click->bookblock-zoom#showImage">
+                    <img src="{image.url}" 
+                         alt="Page {iterator.cycle}" 
+                         loading="lazy" 
+                         decoding="async"
+                         data-page="{iterator.cycle}"
+                         data-width="{image.width}"
+                         data-height="{image.height}" />
+                    
+                    <f:if condition="{config.showPageNumbers}">
+                      <div class="bb-page-number">
+                        {iterator.cycle} / {iterator.total}
+                      </div>
+                    </f:if>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </f:for>
+      </f:if>
+
+      <f:comment>Custom Content Pages (if no PDF/images)</f:comment>
+      <f:if condition="{config.customPages}">
+        <f:for each="{config.customPages}" as="page" iteration="iterator">
+          <div class="bb-page" data-bookblock-target="page">
+            <div class="bb-outer">
+              <div class="bb-content">
+                <div class="bb-inner">
+                  <div class="bb-item bb-custom-content" data-bookblock-target="item">
+                    <f:format.html>{page.content}</f:format.html>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </f:for>
+      </f:if>
+
+      <f:comment>Navigation Overlays</f:comment>
+      <div class="page-left">
+        <button class="bb-navigate" 
+                data-action="click->bookblock#prevPage"
+                aria-label="Previous page"
+                title="Previous page">
+          <span class="sr-only">Previous</span>
+        </button>
+      </div>
+      <div class="page-right">
+        <button class="bb-navigate" 
+                data-action="click->bookblock#nextPage"
+                aria-label="Next page"
+                title="Next page">
+          <span class="sr-only">Next</span>
+        </button>
+      </div>
+      
+    </div>
+
+    <f:comment>Flip Animation Overlay</f:comment>
+    <div class="bb-flip-overlay" data-bookblock-target="flipOverlay"></div>
+
+    <f:comment>Navigation Controls</f:comment>
+    <nav class="bb-navigation" data-bookblock-target="navigation">
+      <div class="bb-nav-controls">
+        <button class="bb-nav-button" 
+                data-action="click->bookblock#firstPage"
+                aria-label="First page"
+                title="First page">
+          <span>⏮</span>
+        </button>
+        <button class="bb-nav-button" 
+                data-action="click->bookblock#prevPage"
+                aria-label="Previous page"
+                title="Previous page">
+          <span>⏪</span>
+        </button>
+        <button class="bb-nav-button" 
+                data-action="click->bookblock#nextPage"
+                aria-label="Next page"
+                title="Next page">
+          <span>⏩</span>
+        </button>
+        <button class="bb-nav-button" 
+                data-action="click->bookblock#lastPage"
+                aria-label="Last page"
+                title="Last page">
+          <span>⏭</span>
+        </button>
+      </div>
+
+      <f:if condition="{config.showPageInfo}">
+        <div class="bb-page-info">
+          <span class="bb-current-page">1</span> 
+          / 
+          <span class="bb-total-pages">{images -> f:count()}</span>
+        </div>
+      </f:if>
+    </nav>
+
+    <f:comment>Thumbnails (if enabled)</f:comment>
+    <f:if condition="{config.showThumbnails}">
+      <div class="bb-thumbnails" 
+           data-bookblock-thumbnail-target="thumbnails"
+           data-bookblock-thumbnail-visible-value="false"
+           data-bookblock-thumbnail-auto-generate-value="true"
+           data-bookblock-thumbnail-max-visible-value="10"
+           data-bookblock-thumbnail-lazy-load-value="true">
+        
+        <button class="bb-thumbnails-toggle"
+                data-action="click->bookblock-thumbnail#toggle"
+                data-bookblock-thumbnail-target="toggle"
+                aria-expanded="false"
+                aria-label="Toggle thumbnails">
+        </button>
+        
+        <div class="bb-thumbnails-grid" 
+             data-bookblock-thumbnail-target="grid">
+        </div>
+        
+        <div class="bb-thumbnails-nav" data-bookblock-thumbnail-target="navigation">
+          <button class="bb-thumbnails-nav-button up" 
+                  data-action="click->bookblock-thumbnail#scrollPrev"
+                  data-bookblock-thumbnail-target="prevButton"
+                  aria-label="Scroll thumbnails up">
+          </button>
+          <button class="bb-thumbnails-nav-button down" 
+                  data-action="click->bookblock-thumbnail#scrollNext"
+                  data-bookblock-thumbnail-target="nextButton"
+                  aria-label="Scroll thumbnails down">
+          </button>
+        </div>
+        
+        <div class="bb-thumbnails-counter" data-bookblock-thumbnail-target="counter">
+          1 / {images -> f:count()}
+        </div>
+      </div>
+    </f:if>
+
+    <f:comment>Toolbar with additional controls</f:comment>
+    <f:if condition="{config.showToolbar}">
+      <div class="bb-toolbar" data-bookblock-target="toolbar">
+        <f:if condition="{config.enableZoom}">
+          <button class="button bb-zoom-toggle" 
+                  data-action="click->bookblock-zoom#showImage"
+                  aria-label="Zoom current page"
+                  title="Zoom">
+            <span>🔍</span>
+          </button>
+        </f:if>
+        
+        <f:if condition="{config.autoPlay}">
+          <button class="button bb-autoplay-toggle" 
+                  data-action="click->bookblock#toggleAutoPlay"
+                  aria-label="Toggle auto play"
+                  title="Auto Play">
+            <span>⏯</span>
+          </button>
+        </f:if>
+        
+        <button class="button bb-fullscreen-toggle" 
+                data-action="click->bookblock#toggle"
+                aria-label="Toggle fullscreen"
+                title="Fullscreen">
+          <span>⛶</span>
+        </button>
+        
+        <button class="button bb-close" 
+                data-action="click->bookblock#close"
+                data-bookblock-target="closeButton"
+                aria-label="Close BookBlock"
+                title="Close">
+          <span>✕</span>
+        </button>
+      </div>
+    </f:if>
+  </div>
+
+  <f:comment>Zoom Overlay</f:comment>
+  <div class="bb-zoom-overlay" 
+       data-bookblock-zoom-target="overlay"
+       tabindex="-1"
+       role="dialog"
+       aria-labelledby="{bookBlockId}-zoom-title"
+       aria-hidden="true">
+    
+    <div class="bb-zoom-container" data-bookblock-zoom-target="container">
+      <img class="bb-zoom-image" 
+           data-bookblock-zoom-target="image"
+           alt="Zoomed page" />
+      
+      <div class="bb-zoom-controls" data-bookblock-zoom-target="controls">
+        <button class="bb-zoom-button" 
+                data-action="click->bookblock-zoom#zoomIn"
+                data-bookblock-zoom-target="zoomIn"
+                aria-label="Zoom in"
+                title="Zoom In">
+          <span>+</span>
+        </button>
+        <button class="bb-zoom-button" 
+                data-action="click->bookblock-zoom#zoomOut"
+                data-bookblock-zoom-target="zoomOut"
+                aria-label="Zoom out"
+                title="Zoom Out">
+          <span>−</span>
+        </button>
+        <button class="bb-zoom-button" 
+                data-action="click->bookblock-zoom#zoomReset"
+                data-bookblock-zoom-target="zoomReset"
+                aria-label="Reset zoom"
+                title="Reset Zoom">
+          <span>⌂</span>
+        </button>
+        <button class="bb-zoom-button" 
+                data-action="click->bookblock-zoom#close"
+                data-bookblock-zoom-target="zoomClose"
+                aria-label="Close zoom"
+                title="Close">
+          <span>✕</span>
+        </button>
+      </div>
+      
+      <div class="bb-zoom-info" data-bookblock-zoom-target="info">
+        100%
+      </div>
+    </div>
+  </div>
+
+  <f:comment>Modal Overlay (for fullscreen mode)</f:comment>
+  <div class="bb-modal-overlay" 
+       data-bookblock-target="overlay"
+       tabindex="-1"
+       role="dialog"
+       aria-labelledby="{bookBlockId}-title"
+       aria-hidden="true">
+  </div>
+
+</div>
+
+<f:comment>Include required CSS and JS</f:comment>
+<f:section name="HeaderAssets">
+  <f:if condition="{config.includeAssets}">
+    <link rel="stylesheet" href="/typo3conf/ext/template/Resources/Public/Css/default/dist/main.css" />
+  </f:if>
+</f:section>
+
+<f:section name="FooterAssets">
+  <f:if condition="{config.includeAssets}">
+    <script src="/typo3conf/ext/template/Resources/Public/Js/default/dist/main.js" defer></script>
+  </f:if>
+</f:section>
+
+</html>

@@ -1,0 +1,194 @@
+// BookBlock Core Styles
+// Modern CSS implementation with CSS Custom Properties
+
+.bb-bookblock {
+  container-type: inline-size;
+  container-name: bookblock;
+  position: relative;
+  overflow: hidden;
+  
+  // Base container styling
+  &__container {
+    position: relative;
+    width: 100%;
+    height: var(--bookblock-container-height, 400px);
+    background: var(--bookblock-container-bg, #fff);
+    border-radius: var(--bookblock-border-radius, 8px);
+    box-shadow: var(--bookblock-shadow, 0 4px 20px rgba(0, 0, 0, 0.1));
+  }
+  
+  // All items wrapper
+  .bb-all-items {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    perspective: var(--bookblock-perspective, 1300px);
+    perspective-origin: 50% 50%;
+    backface-visibility: hidden;
+    
+    @container bookblock (max-width: 768px) {
+      perspective: calc(var(--bookblock-perspective) * 0.7);
+    }
+  }
+  
+  // Individual book items
+  .bb-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-origin: 50% 50%;
+    transform-style: preserve-3d;
+    transition: transform var(--bookblock-transition-speed, 600ms) ease-in-out;
+    
+    &.bb-current {
+      z-index: 10;
+    }
+    
+    &.bb-move-right {
+      transform: translateX(50%) rotateY(-90deg);
+    }
+    
+    &.bb-move-left {
+      transform: translateX(-50%) rotateY(90deg);
+    }
+  }
+  
+  // Book pages
+  .bb-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    overflow: hidden;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+  
+  // Navigation arrows
+  &__nav {
+    position: absolute;
+    top: 50%;
+    z-index: 100;
+    transform: translateY(-50%);
+    background: var(--bookblock-nav-bg, rgba(255, 255, 255, 0.9));
+    border: none;
+    border-radius: var(--bookblock-nav-border-radius, 50%);
+    width: var(--bookblock-nav-size, 48px);
+    height: var(--bookblock-nav-size, 48px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+      background: var(--bookblock-nav-hover-bg, #fff);
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      
+      &:hover {
+        transform: translateY(-50%);
+        box-shadow: none;
+      }
+    }
+    
+    &--prev {
+      left: var(--bookblock-nav-offset, 16px);
+    }
+    
+    &--next {
+      right: var(--bookblock-nav-offset, 16px);
+    }
+    
+    // Icons
+    &::after {
+      content: '';
+      width: 16px;
+      height: 16px;
+      background: currentColor;
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+    }
+    
+    &--prev::after {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z'/%3E%3C/svg%3E");
+    }
+    
+    &--next::after {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'/%3E%3C/svg%3E");
+    }
+  }
+  
+  // Loading state
+  &--loading {
+    .bb-item {
+      opacity: 0;
+    }
+    
+    &::after {
+      content: 'Loading...';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1000;
+      color: var(--bookblock-text-color, #333);
+      font-size: var(--bookblock-loading-font-size, 1.2rem);
+    }
+  }
+  
+  // Error state
+  &--error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bookblock-error-color, #d32f2f);
+    font-size: var(--bookblock-error-font-size, 1.1rem);
+    
+    &::after {
+      content: 'Error loading content';
+    }
+  }
+}
+
+// Responsive container queries
+@container bookblock (max-width: 640px) {
+  .bb-bookblock {
+    &__nav {
+      width: var(--bookblock-nav-size-mobile, 40px);
+      height: var(--bookblock-nav-size-mobile, 40px);
+      
+      &--prev {
+        left: var(--bookblock-nav-offset-mobile, 8px);
+      }
+      
+      &--next {
+        right: var(--bookblock-nav-offset-mobile, 8px);
+      }
+    }
+  }
+}
+
+@container bookblock (max-width: 480px) {
+  .bb-bookblock {
+    &__container {
+      height: var(--bookblock-container-height-small, 300px);
+      border-radius: var(--bookblock-border-radius-small, 4px);
+    }
+  }
+}

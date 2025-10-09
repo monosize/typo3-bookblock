@@ -1,0 +1,20 @@
+# BookBlock Content Element Wizard Configuration
+
+mod.wizards.newContentElement.wizardItems.interactive {
+    header = Interactive Elements
+    elements {
+        bookblock_content {
+            iconIdentifier = content-bookblock
+            title = BookBlock Interactive Component
+            description = Interactive page-turning component for PDFs and images with zoom, thumbnails, and touch navigation
+            tt_content_defValues {
+                CType = bookblock_content
+            }
+        }
+    }
+    show = *
+}
+
+# Move element to interactive tab
+mod.wizards.newContentElement.wizardItems.common.elements.bookblock_content >
+mod.wizards.newContentElement.wizardItems.special.elements.bookblock_content >

@@ -1,0 +1,131 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" 
+      data-namespace-typo3-fluid="true">
+
+<div class="bookblock-preview">
+    <div class="media">
+        <div class="media-left">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                <i class="fa fa-book fa-stack-1x fa-inverse"></i>
+            </span>
+        </div>
+        <div class="media-body">
+            <h5 class="media-heading">
+                <strong>BookBlock</strong>
+                <f:if condition="{title}">
+                    <span class="text-muted">- {title}</span>
+                </f:if>
+            </h5>
+            
+            <f:if condition="{description}">
+                <p class="text-muted small">{description}</p>
+            </f:if>
+            
+            <div class="bookblock-preview-details">
+                <!-- PDF-Datei Information -->
+                <f:if condition="{pdfFile}">
+                    <f:then>
+                        <div class="alert alert-success">
+                            <i class="fa fa-file-pdf-o"></i>
+                            <strong>{pdfFile.name}</strong> ({pdfFile.size})
+                            <f:if condition="{pdfFile.error}">
+                                <br><small class="text-danger">Fehler: {pdfFile.error}</small>
+                            </f:if>
+                        </div>
+                    </f:then>
+                    <f:else>
+                        <div class="alert alert-warning">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            Keine PDF-Datei ausgewählt
+                        </div>
+                    </f:else>
+                </f:if>
+
+                <!-- Konfiguration Details -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>Darstellung:</strong>
+                        <f:if condition="{settings.flat}">
+                            <f:then>
+                                <span class="label label-info">Flache Galerie</span>
+                            </f:then>
+                            <f:else>
+                                <span class="label label-primary">3D Buch</span>
+                            </f:else>
+                        </f:if>
+                        
+                        <br><br>
+                        
+                        <strong>Seitenmodus:</strong>
+                        <f:if condition="{settings.singlepages}">
+                            <f:then>
+                                <span class="label label-success">Einzelseiten</span>
+                            </f:then>
+                            <f:else>
+                                <span class="label label-default">Doppelseiten</span>
+                                <f:if condition="{settings.firstpagesingle}">
+                                    <span class="label label-info">Erste Seite einzeln</span>
+                                </f:if>
+                                <f:if condition="{settings.lastpagesingle}">
+                                    <span class="label label-info">Letzte Seite einzeln</span>
+                                </f:if>
+                            </f:else>
+                        </f:if>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <strong>Funktionen:</strong><br>
+                        
+                        <f:if condition="{settings.enableZoom}">
+                            <span class="label label-success">
+                                <i class="fa fa-search-plus"></i> Zoom
+                            </span>
+                        </f:if>
+                        
+                        <f:if condition="{settings.showThumbnails}">
+                            <span class="label label-success">
+                                <i class="fa fa-th"></i> Thumbnails
+                            </span>
+                        </f:if>
+                        
+                        <br><br>
+                        
+                        <strong>Bildqualität:</strong><br>
+                        <small class="text-muted">
+                            Höhe: {settings.height}px<br>
+                            Thumbnails: {settings.thumbnailHeight}px<br>
+                            Zoom: {settings.zoomHeight}px<br>
+                            Animation: {settings.animationSpeed}ms
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.bookblock-preview {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+}
+.bookblock-preview .media-left {
+    padding-right: 15px;
+}
+.bookblock-preview .label {
+    margin-right: 5px;
+    margin-bottom: 3px;
+    display: inline-block;
+}
+.bookblock-preview-details {
+    margin-top: 10px;
+}
+.bookblock-preview .alert {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+}
+</style>
+
+</html>

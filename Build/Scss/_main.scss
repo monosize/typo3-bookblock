@@ -1,0 +1,18 @@
+// BookBlock Main SCSS
+// Modern CSS implementation without jQuery dependencies
+
+// Import CSS Custom Properties
+@use 'settings/_variables';
+
+// Import Components
+@use 'components/_bookblock-core';
+@use 'components/_bookblock-zoom';
+@use 'components/_bookblock-thumbnails';
+@use 'components/_bookblock-responsive';
+
+// Export namespace for template integration
+:export {
+  name: "bookblock";
+  version: "1.0.0";
+  components: "core, zoom, thumbnails, responsive";
+}

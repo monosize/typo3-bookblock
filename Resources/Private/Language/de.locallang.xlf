@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" product-name="bookblock" date="2024-01-01T00:00:00Z">
+		<header/>
+		<body>
+			<trans-unit id="flux.bookblock">
+				<source>BookBlock</source>
+				<target>BookBlock</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.sheets.config">
+				<source>Configuration</source>
+				<target>Konfiguration</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.sheets.advanced">
+				<source>Advanced Options</source>
+				<target>Erweiterte Optionen</target>
+			</trans-unit>
+			
+			<!-- Original fields from old extension -->
+			<trans-unit id="flux.bookblock.fields.height">
+				<source>Height</source>
+				<target>Höhe</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.thumbnailHeight">
+				<source>Thumbnail Height</source>
+				<target>Thumbnail-Höhe</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.zoomHeight">
+				<source>Zoom Height</source>
+				<target>Zoom-Höhe</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.thumbwidth">
+				<source>Cover width</source>
+				<target>Cover-Breite</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.thumbheight">
+				<source>Cover height</source>
+				<target>Cover-Höhe</target>
+			</trans-unit>
+			
+			<!-- Additional modern fields -->
+			<trans-unit id="flux.bookblock.fields.flat">
+				<source>Use LightGallery instead of 3D page turning</source>
+				<target>Verwende LightGallery anstelle des 3D-Blätterns</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.singlepages">
+				<source>Single pages</source>
+				<target>Einzelseiten</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.firstpagesingle">
+				<source>First page is a single page</source>
+				<target>Erste Seite ist eine Einzelseite</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.lastpagesingle">
+				<source>Last page is a single page</source>
+				<target>Letzte Seite ist eine Einzelseite</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.pdf">
+				<source>PDF file</source>
+				<target>PDF-Datei</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.enableZoom">
+				<source>Enable zoom function</source>
+				<target>Zoom-Funktion aktivieren</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.showThumbnails">
+				<source>Show thumbnail navigation</source>
+				<target>Thumbnail-Navigation anzeigen</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.animationSpeed">
+				<source>Animation speed (ms)</source>
+				<target>Animationsgeschwindigkeit (ms)</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.preloadImages">
+				<source>Preload images</source>
+				<target>Bilder vorladen</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.lazyLoading">
+				<source>Enable lazy loading</source>
+				<target>Lazy Loading aktivieren</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.keyboardNavigation">
+				<source>Enable keyboard navigation</source>
+				<target>Tastaturnavigation aktivieren</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.altText">
+				<source>Alt text for accessibility</source>
+				<target>Alt-Text für Barrierefreiheit</target>
+			</trans-unit>
+			<trans-unit id="flux.bookblock.fields.cssClass">
+				<source>Additional CSS classes</source>
+				<target>Zusätzliche CSS-Klassen</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

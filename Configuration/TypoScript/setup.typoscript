@@ -1,0 +1,22 @@
+# BookBlock Flux Content Template TypoScript Setup
+# TYPO3 13.4 + FluidTYPO3/Flux v10 compatible
+
+# Flux Provider für BookBlock Content Templates
+plugin.tx_flux.providers {
+    bookblock {
+        templateRootPaths {
+            0 = EXT:bookblock/Resources/Private/Templates/
+        }
+        partialRootPaths {
+            0 = EXT:bookblock/Resources/Private/Partials/
+        }
+        layoutRootPaths {
+            0 = EXT:bookblock/Resources/Private/Layouts/
+        }
+    }
+}
+
+# ViewHelper Namespaces für BookBlock
+plugin.tx_flux.settings.namespaces {
+    bb = Monosize\Bookblock\ViewHelpers
+}

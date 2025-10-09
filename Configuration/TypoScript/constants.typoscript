@@ -1,0 +1,41 @@
+# BookBlock Extension TypoScript Constants
+# TYPO3 13.4 compatible configuration
+
+# cat=plugin.tx_bookblock_bookblockcontent/file; type=string; label=Path to template root (FE)
+plugin.tx_bookblock_bookblockcontent.view.templateRootPath = EXT:bookblock/Resources/Private/Templates/
+
+# cat=plugin.tx_bookblock_bookblockcontent/file; type=string; label=Path to template partials (FE)
+plugin.tx_bookblock_bookblockcontent.view.partialRootPath = EXT:bookblock/Resources/Private/Partials/
+
+# cat=plugin.tx_bookblock_bookblockcontent/file; type=string; label=Path to template layouts (FE)
+plugin.tx_bookblock_bookblockcontent.view.layoutRootPath = EXT:bookblock/Resources/Private/Layouts/
+
+# cat=plugin.tx_bookblock_bookblockcontent/config; type=string; label=Default storage PID
+plugin.tx_bookblock_bookblockcontent.persistence.storagePid = 
+
+# cat=plugin.tx_bookblock_bookblockcontent/config; type=string; label=Default orientation (vertical|horizontal)
+plugin.tx_bookblock_bookblockcontent.settings.defaultOrientation = vertical
+
+# cat=plugin.tx_bookblock_bookblockcontent/config; type=int+; label=Default animation speed in milliseconds
+plugin.tx_bookblock_bookblockcontent.settings.defaultAnimationSpeed = 600
+
+# cat=plugin.tx_bookblock_bookblockcontent/config; type=int+; label=Default PDF conversion DPI
+plugin.tx_bookblock_bookblockcontent.settings.defaultDpi = 150
+
+# cat=plugin.tx_bookblock_bookblockcontent/config; type=string; label=Default image format (jpg|png)
+plugin.tx_bookblock_bookblockcontent.settings.defaultImageFormat = jpg
+
+# cat=plugin.tx_bookblock_bookblockcontent/config; type=int+; label=Default image quality (1-100)
+plugin.tx_bookblock_bookblockcontent.settings.defaultImageQuality = 90
+
+# cat=plugin.tx_bookblock_bookblockcontent/config; type=int+; label=Default maximum image width in pixels
+plugin.tx_bookblock_bookblockcontent.settings.defaultMaxWidth = 1200
+
+# cat=plugin.tx_bookblock_bookblockcontent/config; type=int+; label=Default maximum image height in pixels
+plugin.tx_bookblock_bookblockcontent.settings.defaultMaxHeight = 1600
+
+# cat=plugin.tx_bookblock_bookblockcontent/file; type=string; label=CSS asset path
+plugin.tx_bookblock_bookblockcontent.settings.cssPath = EXT:template/Resources/Public/Css/default/dist/
+
+# cat=plugin.tx_bookblock_bookblockcontent/file; type=string; label=JavaScript asset path
+plugin.tx_bookblock_bookblockcontent.settings.jsPath = EXT:template/Resources/Public/Js/default/dist/

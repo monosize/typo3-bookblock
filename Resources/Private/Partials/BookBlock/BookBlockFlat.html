@@ -1,0 +1,175 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" 
+      xmlns:bb="http://typo3.org/ns/Monosize/Bookblock/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<!-- Flat BookBlock Implementation (LightGallery Style) -->
+<f:variable name="bookBlockId" value="bookblock-{data.uid}" />
+
+<div class="bb-bookblock-container bb-bookblock-flat"
+     data-controller="bookblock-bookblock"
+     data-bookblock-bookblock-id-value="{bookBlockId}"
+     data-bookblock-bookblock-orientation-value="flat"
+     data-bookblock-bookblock-enable-zoom-value="{f:if(condition: config.enableZoom, then: 'true', else: 'false')}"
+     data-bookblock-bookblock-animation-speed-value="{config.animationSpeed}"
+     id="{bookBlockId}">
+
+    <!-- PDF Processing mit ViewHelper -->
+    <f:if condition="{config.pdfFile}">
+        <f:then>
+            <f:variable name="bookBlockData" value="{bb:bookBlock(
+                pdf: config.pdfFile.publicUrl,
+                settings: config.settings,
+                height: config.height,
+                singlepages: config.singlepages,
+                firstpagesingle: config.firstpagesingle,
+                lastpagesingle: config.lastpagesingle,
+                thumbnailHeight: config.thumbnailHeight,
+                zoomHeight: config.zoomHeight
+            )}" />
+            
+            <!-- Flat Gallery Container -->
+            <div class="bb-gallery"
+                 data-bookblock-bookblock-target="container"
+                 data-bookblock-bookblock-config="{bookBlockData}">
+                
+                <!-- Loading Indicator -->
+                <div class="bb-loading" data-bookblock-bookblock-target="loading">
+                    <div class="bb-loading-spinner"></div>
+                    <p>PDF wird verarbeitet...</p>
+                </div>
+                
+                <!-- Main Gallery Display -->
+                <div class="bb-gallery-main" data-bookblock-bookblock-target="gallery">
+                    <div class="bb-gallery-image-container">
+                        <img class="bb-gallery-image" 
+                             data-bookblock-bookblock-target="currentImage"
+                             alt="PDF Seite" />
+                    </div>
+                </div>
+                
+                <!-- Gallery Controls -->
+                <div class="bb-gallery-controls">
+                    <!-- Previous/Next Navigation -->
+                    <button class="bb-gallery-prev" 
+                            data-action="click->bookblock#prevPage" 
+                            data-bookblock-bookblock-target="prevButton"
+                            disabled>
+                        <svg class="bb-nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                        </svg>
+                        <span class="sr-only">Vorherige Seite</span>
+                    </button>
+                    
+                    <div class="bb-gallery-info">
+                        <span class="bb-page-counter">
+                            <span data-bookblock-bookblock-target="currentPage">1</span> / 
+                            <span data-bookblock-bookblock-target="totalPages">1</span>
+                        </span>
+                    </div>
+                    
+                    <button class="bb-gallery-next" 
+                            data-action="click->bookblock#nextPage" 
+                            data-bookblock-bookblock-target="nextButton">
+                        <svg class="bb-nav-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+                        </svg>
+                        <span class="sr-only">Nächste Seite</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Thumbnail Strip (falls aktiviert) -->
+            <f:if condition="{config.showThumbnails}">
+                <div class="bb-thumbnails bb-thumbnails-horizontal"
+                     data-controller="bookblock-bookblock_thumbnail"
+                     data-bookblock-bookblock_thumbnail-bookblock-value="{bookBlockId}">
+                    
+                    <div class="bb-thumbnails-container">
+                        <button class="bb-thumbnails-scroll-left" 
+                                data-action="click->bookblock-bookblock_thumbnail#scrollLeft">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                            </svg>
+                        </button>
+                        
+                        <div class="bb-thumbnails-list" data-bookblock-bookblock_thumbnail-target="list">
+                            <!-- Thumbnails werden dynamisch eingefügt -->
+                        </div>
+                        
+                        <button class="bb-thumbnails-scroll-right" 
+                                data-action="click->bookblock-bookblock_thumbnail#scrollRight">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </f:if>
+
+        </f:then>
+        <f:else>
+            <div class="bb-error">
+                <p class="bb-error-message">Keine PDF-Datei ausgewählt</p>
+                <p class="bb-error-help">Bitte wählen Sie eine PDF-Datei in den Inhaltseinstellungen aus.</p>
+            </div>
+        </f:else>
+    </f:if>
+
+    <!-- Fullscreen Zoom Modal (falls aktiviert) -->
+    <f:if condition="{config.enableZoom}">
+        <div class="bb-zoom-overlay bb-zoom-lightbox"
+             data-controller="bookblock-bookblock_zoom"
+             data-bookblock-bookblock_zoom-bookblock-value="{bookBlockId}"
+             data-action="click->bookblock-bookblock_zoom#close">
+            
+            <div class="bb-zoom-container" data-bookblock-bookblock_zoom-target="container">
+                <!-- Close Button -->
+                <button class="bb-zoom-close" data-action="click->bookblock-bookblock_zoom#close">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                    </svg>
+                    <span class="sr-only">Schließen</span>
+                </button>
+                
+                <!-- Zoomed Image Container -->
+                <div class="bb-zoom-content" data-bookblock-bookblock_zoom-target="content">
+                    <img class="bb-zoom-image" 
+                         data-bookblock-bookblock_zoom-target="image" 
+                         alt="PDF Seite (vergrößert)" />
+                </div>
+                
+                <!-- Zoom Navigation -->
+                <div class="bb-zoom-controls">
+                    <button class="bb-zoom-prev" data-action="click->bookblock-bookblock_zoom#prevPage">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                        </svg>
+                    </button>
+                    
+                    <span class="bb-zoom-info">
+                        <span data-bookblock-bookblock_zoom-target="pageInfo"></span>
+                    </span>
+                    
+                    <button class="bb-zoom-next" data-action="click->bookblock-bookblock_zoom#nextPage">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </f:if>
+
+</div>
+
+<f:comment>
+    Flat BookBlock Template (LightGallery Style):
+    - Verwendet bb:bookBlock ViewHelper für PDF-Verarbeitung
+    - Stimulus Controller für flache Gallery-Ansicht
+    - Horizontale Thumbnail-Navigation
+    - Vollbild-Zoom mit Navigation
+    - Optimiert für Touch-Geräte
+    - Verwendet gleiche ViewHelper-Daten wie 3D Version
+</f:comment>
+
+</html>

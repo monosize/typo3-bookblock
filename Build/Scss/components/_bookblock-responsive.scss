@@ -1,0 +1,324 @@
+// BookBlock Responsive Styles
+// Container queries and responsive design patterns
+
+// Base responsive container
+.bb-bookblock {
+  // Small screens
+  @container bookblock (max-width: 480px) {
+    &__container {
+      height: var(--bookblock-container-height-small);
+      border-radius: var(--bookblock-border-radius-small);
+      margin: 0 var(--bookblock-margin-mobile, 8px);
+    }
+    
+    &__nav {
+      width: var(--bookblock-nav-size-mobile);
+      height: var(--bookblock-nav-size-mobile);
+      
+      &--prev {
+        left: var(--bookblock-nav-offset-mobile);
+      }
+      
+      &--next {
+        right: var(--bookblock-nav-offset-mobile);
+      }
+      
+      &::after {
+        width: 12px;
+        height: 12px;
+      }
+    }
+    
+    // Reduce perspective on small screens
+    .bb-all-items {
+      perspective: calc(var(--bookblock-perspective) * 0.6);
+    }
+  }
+  
+  // Medium screens
+  @container bookblock (min-width: 481px) and (max-width: 768px) {
+    &__container {
+      height: calc(var(--bookblock-container-height) * 0.85);
+      margin: 0 var(--bookblock-margin-tablet, 16px);
+    }
+    
+    .bb-all-items {
+      perspective: calc(var(--bookblock-perspective) * 0.8);
+    }
+  }
+  
+  // Large screens
+  @container bookblock (min-width: 1200px) {
+    &__container {
+      height: calc(var(--bookblock-container-height) * 1.2);
+    }
+    
+    &__nav {
+      width: calc(var(--bookblock-nav-size) + 8px);
+      height: calc(var(--bookblock-nav-size) + 8px);
+      
+      &::after {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
+
+// Responsive zoom modal
+.bb-bookblock-zoom {
+  // Small screens - full screen zoom
+  @media (max-width: 480px) {
+    padding: 0;
+    
+    &__content {
+      width: 100vw;
+      height: 100vh;
+      max-width: none;
+      max-height: none;
+      border-radius: 0;
+    }
+    
+    &__image {
+      max-height: calc(100vh - 60px);
+    }
+    
+    &__close {
+      top: 16px;
+      right: 16px;
+      width: 44px;
+      height: 44px;
+      background: rgba(0, 0, 0, 0.8);
+    }
+    
+    &__nav {
+      width: 44px;
+      height: 44px;
+      
+      &--prev {
+        left: 16px;
+      }
+      
+      &--next {
+        right: 16px;
+      }
+    }
+    
+    &__counter {
+      bottom: 20px;
+      padding: 12px 20px;
+      font-size: 1rem;
+    }
+  }
+  
+  // Tablet screens
+  @media (min-width: 481px) and (max-width: 768px) {
+    padding: 16px;
+    
+    &__content {
+      max-width: calc(100vw - 32px);
+      max-height: calc(100vh - 32px);
+    }
+  }
+  
+  // Desktop screens
+  @media (min-width: 1200px) {
+    &__nav {
+      width: 56px;
+      height: 56px;
+      
+      &::after {
+        width: 24px;
+        height: 24px;
+      }
+    }
+    
+    &__close {
+      width: 44px;
+      height: 44px;
+      
+      &::after {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+}
+
+// Responsive thumbnails
+.bb-bookblock-thumbnails {
+  // Tiny screens
+  @container bookblock-thumbnails (max-width: 320px) {
+    &__container {
+      gap: 4px;
+      padding: 4px;
+    }
+    
+    &__item {
+      width: 40px;
+      height: 40px;
+    }
+    
+    &__page-number {
+      display: none; // Hide page numbers on very small screens
+    }
+    
+    &__nav {
+      display: none; // Hide navigation on tiny screens
+    }
+  }
+  
+  // Small screens
+  @container bookblock-thumbnails (min-width: 321px) and (max-width: 600px) {
+    &__item {
+      width: var(--bookblock-thumb-size-mobile);
+      height: var(--bookblock-thumb-size-mobile);
+    }
+  }
+  
+  // Large screens
+  @container bookblock-thumbnails (min-width: 900px) {
+    &__item {
+      width: calc(var(--bookblock-thumb-size) + 20px);
+      height: calc(var(--bookblock-thumb-size) + 20px);
+    }
+    
+    &__page-number {
+      font-size: 12px;
+      padding: 4px 6px;
+      bottom: 4px;
+      right: 4px;
+    }
+  }
+}
+
+// Touch device optimizations
+@media (hover: none) and (pointer: coarse) {
+  .bb-bookblock {
+    &__nav {
+      // Larger touch targets
+      width: calc(var(--bookblock-nav-size) + 12px);
+      height: calc(var(--bookblock-nav-size) + 12px);
+      
+      // Remove hover effects on touch devices
+      &:hover {
+        transform: translateY(-50%);
+        box-shadow: none;
+        background: var(--bookblock-nav-bg);
+      }
+    }
+  }
+  
+  .bb-bookblock-thumbnails {
+    &__item {
+      // Larger touch targets for thumbnails
+      min-width: 44px;
+      min-height: 44px;
+      
+      &:hover {
+        transform: none;
+        opacity: var(--bookblock-thumb-opacity);
+      }
+    }
+  }
+  
+  .bb-bookblock-zoom {
+    &__nav {
+      // Larger touch targets in zoom mode
+      width: 56px;
+      height: 56px;
+    }
+    
+    &__close {
+      width: 56px;
+      height: 56px;
+    }
+  }
+}
+
+// Orientation changes
+@media (orientation: landscape) and (max-height: 500px) {
+  .bb-bookblock {
+    &__container {
+      height: calc(100vh - 120px);
+      max-height: 350px;
+    }
+  }
+  
+  .bb-bookblock-zoom {
+    &__content {
+      max-height: calc(100vh - 40px);
+    }
+    
+    &__counter {
+      display: none; // Hide counter in landscape on short screens
+    }
+  }
+}
+
+@media (orientation: portrait) and (max-width: 500px) {
+  .bb-bookblock {
+    &__container {
+      height: calc(50vh);
+      min-height: 250px;
+      max-height: 400px;
+    }
+  }
+}
+
+// Print styles
+@media print {
+  .bb-bookblock {
+    &__nav,
+    .bb-bookblock-thumbnails {
+      display: none !important;
+    }
+    
+    &__container {
+      height: auto !important;
+      box-shadow: none !important;
+      border: 1px solid #000 !important;
+    }
+    
+    .bb-item {
+      position: static !important;
+      transform: none !important;
+      page-break-inside: avoid;
+    }
+    
+    .bb-page img {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+  }
+  
+  .bb-bookblock-zoom {
+    display: none !important;
+  }
+}
+
+// Reduced data mode
+@media (prefers-reduced-data: reduce) {
+  .bb-bookblock-thumbnails {
+    &__image {
+      // Lazy load images more aggressively
+      loading: lazy;
+    }
+  }
+}
+
+// High DPI screens
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .bb-bookblock {
+    &__nav,
+    .bb-bookblock-zoom__nav,
+    .bb-bookblock-zoom__close,
+    .bb-bookblock-thumbnails__nav {
+      // Ensure crisp icons on high DPI screens
+      &::after {
+        image-rendering: crisp-edges;
+        image-rendering: -webkit-optimize-contrast;
+      }
+    }
+  }
+}

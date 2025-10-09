@@ -1,0 +1,87 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/Fluid/ViewHelpers" 
+      xmlns:flux="http://typo3.org/ns/FluidTYPO3/Flux/ViewHelpers" 
+      xmlns:bb="http://typo3.org/ns/Monosize/Bookblock/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<f:layout name="Default" />
+
+<f:section name="Configuration">
+    <flux:form id="bookblock" label="flux.bookblock">
+        <flux:form.option name="extensionName" value="bookblock" />
+        <flux:form.option.group value="Element" />
+        <flux:form.option.icon value="EXT:bookblock/Resources/Public/Icons/content-bookblock.svg" />
+        
+        <!-- Konfiguration Sheet -->
+        <flux:form.sheet name="config" label="flux.bookblock.sheets.config">
+            <flux:field.checkbox name="flat" label="flux.bookblock.fields.flat" default="1" />
+            <flux:field.input name="height" default="1000" required="1" eval="int" label="flux.bookblock.fields.height" />
+            <flux:field.input name="thumbnailHeight" default="100" required="1" eval="int" label="flux.bookblock.fields.thumbnailHeight" />
+            <flux:field.input name="zoomHeight" default="1500" required="1" eval="int" label="flux.bookblock.fields.zoomHeight" />
+            <flux:field.input name="thumbwidth" default="300" eval="int" label="flux.bookblock.fields.thumbwidth" />
+            <flux:field.input name="thumbheight" default="" eval="int" label="flux.bookblock.fields.thumbheight" />
+            <flux:field.checkbox name="singlepages" default="1" label="flux.bookblock.fields.singlepages" requestUpdate="1" />
+            <flux:field.checkbox name="firstpagesingle" displayCond="FIELD:singlepages:=:0" default="1" label="flux.bookblock.fields.firstpagesingle" />
+            <flux:field.checkbox name="lastpagesingle" displayCond="FIELD:singlepages:=:0" default="1" label="flux.bookblock.fields.lastpagesingle" />
+            <flux:field.inline.fal name="pdf" multiple="false" minItems="1" maxItems="1" showThumbs="1" 
+                                   allowedExtensions="pdf" foreignField="uid_foreign" foreignLabel="uid_local" 
+                                   foreignMatchFields="{fieldname:'pdf'}" foreignSelector="uid_local"
+                                   foreignSortby="sorting_foreign" table="sys_file_reference" 
+                                   foreignTableField="tablenames" label="flux.bookblock.fields.pdf" />
+        </flux:form.sheet>
+        
+        <!-- Erweiterte Optionen Sheet -->
+        <flux:form.sheet name="advanced" label="flux.bookblock.sheets.advanced">
+            <flux:field.checkbox name="enableZoom" default="1" label="flux.bookblock.fields.enableZoom" />
+            <flux:field.checkbox name="showThumbnails" default="0" label="flux.bookblock.fields.showThumbnails" />
+            <flux:field.input name="animationSpeed" default="600" eval="int" label="flux.bookblock.fields.animationSpeed" />
+            <flux:field.checkbox name="preloadImages" default="1" label="flux.bookblock.fields.preloadImages" />
+            <flux:field.checkbox name="lazyLoading" default="0" label="flux.bookblock.fields.lazyLoading" />
+            <flux:field.checkbox name="keyboardNavigation" default="1" label="flux.bookblock.fields.keyboardNavigation" />
+            <flux:field.input name="altText" default="PDF-Dokumentenansicht" label="flux.bookblock.fields.altText" />
+            <flux:field.input name="cssClass" label="flux.bookblock.fields.cssClass" />
+        </flux:form.sheet>
+    </flux:form>
+</f:section>
+
+<f:section name="Preview">
+    <div style="padding: 10px; border: 1px solid #ddd; background: #f9f9f9;">
+        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <f:image src="EXT:bookblock/Resources/Public/Icons/content-bookblock.svg" width="32" />
+            <strong style="margin-left: 10px;">BookBlock</strong>
+        </div>
+        <f:if condition="{pdf}">
+            <f:then>
+                <div style="color: green;">
+                    <strong>PDF-Datei:</strong> {pdf.0.name} ({pdf.0.size} Bytes)<br>
+                    <strong>Modus:</strong> 
+                    <f:if condition="{flat}">
+                        <f:then>Flache Galerie</f:then>
+                        <f:else>3D BookBlock</f:else>
+                    </f:if>
+                    <br>
+                    <strong>Bildgröße:</strong> {height} x {f:if(condition: thumbnailHeight, then: thumbnailHeight, else: '100')} Px
+                </div>
+            </f:then>
+            <f:else>
+                <div style="color: orange;">
+                    <strong>Keine PDF-Datei ausgewählt</strong><br>
+                    Bitte wählen Sie eine PDF-Datei in den Inhaltseinstellungen aus.
+                </div>
+            </f:else>
+        </f:if>
+    </div>
+</f:section>
+
+<f:section name="Main">
+    <!-- Original BookBlock Template Logic wie im ursprünglichen Flux-System -->
+    <f:if condition="{flat}">
+        <f:then>
+            <f:render partial="BookBlock/BookBlockFlat" arguments="{_all}" />
+        </f:then>
+        <f:else>
+            <f:render partial="BookBlock/BookBlock" arguments="{_all}" />
+        </f:else>
+    </f:if>
+</f:section>
+
+</html>

@@ -1,0 +1,280 @@
+// BookBlock Zoom Modal Styles
+// Modern CSS implementation with backdrop-filter support
+
+.bb-bookblock-zoom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--bookblock-zoom-padding, 20px);
+  
+  // Overlay background
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bookblock-overlay-bg);
+    backdrop-filter: var(--bookblock-overlay-backdrop-filter);
+    -webkit-backdrop-filter: var(--bookblock-overlay-backdrop-filter);
+  }
+  
+  // Hide by default
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  
+  // Show state
+  &.bb-zoom-active {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  // Content container
+  &__content {
+    position: relative;
+    z-index: 1;
+    max-width: var(--bookblock-zoom-max-width);
+    max-height: var(--bookblock-zoom-max-height);
+    background: var(--bookblock-zoom-bg);
+    border-radius: var(--bookblock-zoom-border-radius);
+    box-shadow: var(--bookblock-zoom-shadow);
+    overflow: hidden;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+    
+    .bb-zoom-active & {
+      transform: scale(1);
+    }
+  }
+  
+  // Zoom image
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: calc(var(--bookblock-zoom-max-height) - 40px);
+    object-fit: contain;
+  }
+  
+  // Close button
+  &__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.9);
+      transform: scale(1.1);
+    }
+    
+    &:focus {
+      outline: 2px solid #007cba;
+      outline-offset: 2px;
+    }
+    
+    // Close icon
+    &::after {
+      content: '';
+      width: 16px;
+      height: 16px;
+      background: currentColor;
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+    }
+  }
+  
+  // Navigation in zoom mode
+  &__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.9);
+      transform: translateY(-50%) scale(1.1);
+    }
+    
+    &:focus {
+      outline: 2px solid #007cba;
+      outline-offset: 2px;
+    }
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      
+      &:hover {
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.7);
+      }
+    }
+    
+    &--prev {
+      left: 16px;
+    }
+    
+    &--next {
+      right: 16px;
+    }
+    
+    // Navigation icons
+    &::after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      background: currentColor;
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+    }
+    
+    &--prev::after {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z'/%3E%3C/svg%3E");
+    }
+    
+    &--next::after {
+      mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z'/%3E%3C/svg%3E");
+    }
+  }
+  
+  // Page counter
+  &__counter {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  
+  // Loading state in zoom
+  &--loading {
+    .bb-bookblock-zoom__content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 200px;
+      min-height: 100px;
+      
+      &::after {
+        content: 'Loading...';
+        color: var(--bookblock-text-color);
+      }
+    }
+  }
+}
+
+// Responsive zoom modal
+@container bookblock (max-width: 768px) {
+  .bb-bookblock-zoom {
+    padding: var(--bookblock-zoom-padding-mobile, 10px);
+    
+    &__nav {
+      width: 40px;
+      height: 40px;
+      
+      &--prev {
+        left: 10px;
+      }
+      
+      &--next {
+        right: 10px;
+      }
+      
+      &::after {
+        width: 16px;
+        height: 16px;
+      }
+    }
+    
+    &__close {
+      width: 32px;
+      height: 32px;
+      top: 8px;
+      right: 8px;
+      
+      &::after {
+        width: 14px;
+        height: 14px;
+      }
+    }
+    
+    &__counter {
+      bottom: 12px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+// Accessibility improvements
+@media (prefers-reduced-motion: reduce) {
+  .bb-bookblock-zoom {
+    transition: opacity 0.1s ease, visibility 0.1s ease;
+    
+    &__content {
+      transition: none;
+      transform: scale(1);
+    }
+  }
+}
+
+// High contrast mode
+@media (prefers-contrast: high) {
+  .bb-bookblock-zoom {
+    &__close,
+    &__nav {
+      background: #000;
+      color: #fff;
+      
+      &:hover {
+        background: #333;
+      }
+    }
+    
+    &__counter {
+      background: #000;
+      border: 1px solid #fff;
+    }
+  }
+}
