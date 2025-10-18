@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <g fill="none" fill-rule="evenodd">
+    <!-- Document frame -->
+    <path fill="#3498DB" fill-rule="nonzero" d="M32 8h192v236.3H32V8zm14.77 221.53h162.46V22.77H46.77v206.76z"/>
+    <!-- Book icon inside: Open book with pages -->
+    <g fill="#3498DB" fill-rule="nonzero" transform="translate(55 65)">
+      <!-- Left page -->
+      <path d="M0 0 L60 0 L60 110 L5 105 L0 105 Z"/>
+      <!-- Left page lines (text simulation) -->
+      <rect x="8" y="15" width="45" height="3" rx="1" fill="#fff" opacity="0.3"/>
+      <rect x="8" y="25" width="45" height="3" rx="1" fill="#fff" opacity="0.3"/>
+      <rect x="8" y="35" width="40" height="3" rx="1" fill="#fff" opacity="0.3"/>
+      <rect x="8" y="50" width="45" height="3" rx="1" fill="#fff" opacity="0.3"/>
+      <rect x="8" y="60" width="45" height="3" rx="1" fill="#fff" opacity="0.3"/>
+      <rect x="8" y="70" width="38" height="3" rx="1" fill="#fff" opacity="0.3"/>
+      <!-- Right page -->
+      <path d="M86 0 L146 0 L146 105 L141 105 L86 110 Z"/>
+      <!-- Right page lines (text simulation) -->
+      <rect x="93" y="15" width="45" height="3" rx="1" fill="#fff" opacity="0.3"/>
+      <rect x="93" y="25" width="45" height="3" rx="1" fill="#fff" opacity="0.3"/>
+      <rect x="93" y="35" width="40" height="3" rx="1" fill="#fff" opacity="0.3"/>
+      <rect x="93" y="50" width="45" height="3" rx="1" fill="#fff" opacity="0.3"/>
+      <rect x="93" y="60" width="45" height="3" rx="1" fill="#fff" opacity="0.3"/>
+      <rect x="93" y="70" width="38" height="3" rx="1" fill="#fff" opacity="0.3"/>
+      <!-- Book spine/binding -->
+      <rect x="70" y="0" width="6" height="110" rx="1"/>
+    </g>
+  </g>
+</svg>
